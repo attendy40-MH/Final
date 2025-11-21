@@ -1,0 +1,926 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
+    --radius: 0.5rem;
+  }
+}
+
+body {
+  @apply bg-gradient-to-br from-slate-950 via-blue-950 to-indigo-950 text-white min-h-screen;
+  font-family: 'Inter', 'DM Sans', sans-serif;
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400;
+  }
+  
+  .glass-effect {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10;
+  }
+}
+/* Add these to your existing index.css */
+
+/* QR Scanner Animation Styles */
+.dashboard-mockup {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.mockup-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.mockup-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.mockup-dot:nth-child(1) {
+  background: #6A0DAD;
+}
+
+.mockup-dot:nth-child(2) {
+  background: #FFD700;
+  animation-delay: 0.2s;
+}
+
+.mockup-dot:nth-child(3) {
+  background: #00D084;
+  animation-delay: 0.4s;
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+.qr-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  background: linear-gradient(135deg, rgba(106, 13, 173, 0.1), rgba(255, 215, 0, 0.1));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6A0DAD, transparent);
+  top: 0;
+  animation: scan 3s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0%, 100% {
+    top: 0;
+  }
+  50% {
+    top: 100%;
+  }
+}
+
+.qr-code {
+  width: 70%;
+  height: 70%;
+  background: #fff;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 3px;
+  padding: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.qr-pixel {
+  background: #000;
+  border-radius: 2px;
+  animation: pixelAppear 1s ease-in-out infinite;
+}
+
+.qr-pixel:nth-child(4n) {
+  animation-delay: 0.1s;
+}
+
+.qr-pixel:nth-child(4n+1) {
+  animation-delay: 0.2s;
+}
+
+.qr-pixel:nth-child(4n+2) {
+  animation-delay: 0.3s;
+}
+
+@keyframes pixelAppear {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(0.95);
+  }
+}
+
+.corner-frame {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #6A0DAD;
+  animation: cornerPulse 2s ease-in-out infinite;
+}
+
+.corner-frame.tl {
+  top: 10%;
+  left: 10%;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-frame.tr {
+  top: 10%;
+  right: 10%;
+  border-left: none;
+  border-bottom: none;
+  animation-delay: 0.5s;
+}
+
+.corner-frame.bl {
+  bottom: 10%;
+  left: 10%;
+  border-right: none;
+  border-top: none;
+  animation-delay: 1s;
+}
+
+.corner-frame.br {
+  bottom: 10%;
+  right: 10%;
+  border-left: none;
+  border-top: none;
+  animation-delay: 1.5s;
+}
+
+@keyframes cornerPulse {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+/* Add these to your existing index.css */
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400;
+}
+
+.glass-effect {
+  @apply bg-white/5 backdrop-blur-xl border border-white/10;
+}
+
+/* QR Scanner Animation Styles */
+.dashboard-mockup {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.mockup-header {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.mockup-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  animation: dotPulse 2s ease-in-out infinite;
+}
+
+.mockup-dot:nth-child(1) { background: #6A0DAD; }
+.mockup-dot:nth-child(2) { background: #FFD700; animation-delay: 0.2s; }
+.mockup-dot:nth-child(3) { background: #00D084; animation-delay: 0.4s; }
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+}
+
+.qr-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  background: linear-gradient(135deg, rgba(106, 13, 173, 0.1), rgba(255, 215, 0, 0.1));
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.scan-line {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #6A0DAD, transparent);
+  top: 0;
+  animation: scan 3s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0%, 100% { top: 0; }
+  50% { top: 100%; }
+}
+
+.qr-code {
+  width: 70%;
+  height: 70%;
+  background: #fff;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 3px;
+  padding: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.qr-pixel {
+  background: #000;
+  border-radius: 2px;
+  animation: pixelAppear 1s ease-in-out infinite;
+}
+
+.qr-pixel:nth-child(4n) { animation-delay: 0.1s; }
+.qr-pixel:nth-child(4n+1) { animation-delay: 0.2s; }
+.qr-pixel:nth-child(4n+2) { animation-delay: 0.3s; }
+
+@keyframes pixelAppear {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.95); }
+}
+
+.corner-frame {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #6A0DAD;
+  animation: cornerPulse 2s ease-in-out infinite;
+}
+
+.corner-frame.tl {
+  top: 10%;
+  left: 10%;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-frame.tr {
+  top: 10%;
+  right: 10%;
+  border-left: none;
+  border-bottom: none;
+  animation-delay: 0.5s;
+}
+
+.corner-frame.bl {
+  bottom: 10%;
+  left: 10%;
+  border-right: none;
+  border-top: none;
+  animation-delay: 1s;
+}
+
+.corner-frame.br {
+  bottom: 10%;
+  right: 10%;
+  border-left: none;
+  border-top: none;
+  animation-delay: 1.5s;
+}
+
+@keyframes cornerPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 1; }
+}
+
+/* Loading Spinner Animation */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Loading Screen Styles */
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+}
+
+.loading-content {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.loading-spinner {
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  border-top: 4px solid white;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .loading-content {
+    padding: 1.5rem;
+  }
+
+  .loading-spinner {
+    width: 45px;
+    height: 45px;
+    border-width: 3px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-content {
+    padding: 1rem;
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 15px;
+  }
+
+  .loading-text {
+    font-size: 0.95rem;
+  }
+}
+
+/* Mobile-Friendly Global Utilities */
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  -webkit-touch-callout: none;
+}
+
+/* Ensure minimum touch target size for buttons and interactive elements */
+button,
+.btn,
+a.btn,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  min-height: 44px;
+  min-width: 44px;
+  touch-action: manipulation;
+}
+
+/* Prevent text selection on buttons */
+button,
+.btn {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Smooth scrolling for all devices */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Better input styling for mobile devices */
+input,
+select,
+textarea {
+  font-size: 16px; /* Prevents zoom on iOS */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Remove spinner from number inputs on mobile */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Improve table scrolling on mobile */
+.table-container {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  position: relative;
+}
+
+/* Add scroll indicator shadow for tables on mobile */
+@media (max-width: 768px) {
+  .table-container {
+    background:
+      linear-gradient(to right, white 30%, rgba(255,255,255,0)),
+      linear-gradient(to right, rgba(255,255,255,0), white 70%) 0 100%,
+      radial-gradient(farthest-side at 0% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)),
+      radial-gradient(farthest-side at 100% 50%, rgba(0,0,0,.2), rgba(0,0,0,0)) 0 100%;
+    background-repeat: no-repeat;
+    background-color: white;
+    background-size: 40px 100%, 40px 100%, 14px 100%, 14px 100%;
+    background-attachment: local, local, scroll, scroll;
+  }
+
+  .table-container table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  .table-container th,
+  .table-container td {
+    padding: 0.8rem 0.6rem;
+    text-align: left;
+    border-bottom: 1px solid #E2E8F0;
+  }
+
+  .table-container th {
+    background: #F8FAFC;
+    position: sticky;
+    top: 0;
+    font-weight: 600;
+    z-index: 10;
+    white-space: nowrap;
+  }
+
+  .table-container td {
+    white-space: nowrap;
+  }
+
+  /* Action buttons in tables should be touch-friendly */
+  .table-container .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+}
+
+/* Better focus states for accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Prevent horizontal scroll on mobile */
+body {
+  overflow-x: hidden;
+}
+
+/* Mobile Navigation Menu Styles */
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+/* Ensure mobile menu appears above other content */
+nav {
+  position: relative;
+  z-index: 50;
+}
+
+/* Mobile menu animation smoothing */
+@media (max-width: 768px) {
+  .mobile-menu-enter {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  .mobile-menu-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .mobile-menu-exit {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .mobile-menu-exit-active {
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 300ms, transform 300ms;
+  }
+}
+
+/* Mobile-specific responsive utilities */
+@media (max-width: 768px) {
+  /* Ensure proper spacing on mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Make images responsive */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Better video/iframe responsiveness */
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+  }
+}
+
+/* Landscape orientation fixes for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  .header {
+    padding: 0.5rem 1rem !important;
+  }
+
+  .nav-menu {
+    padding: 0.5rem 1rem !important;
+  }
+
+  .section {
+    padding: 1rem !important;
+  }
+}
+
+/* Mobile-Responsive Utility Classes */
+
+/* Flexbox utilities for mobile */
+.flex-mobile-column {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .flex-mobile-column {
+    flex-direction: column;
+  }
+}
+
+/* Grid utilities for mobile */
+.grid-mobile-single {
+  display: grid;
+}
+
+@media (max-width: 768px) {
+  .grid-mobile-single {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Text utilities for mobile */
+.text-mobile-center {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .text-mobile-center {
+    text-align: center;
+  }
+}
+
+/* Spacing utilities for mobile */
+.mobile-spacing {
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .mobile-spacing {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-spacing {
+    padding: 0.8rem;
+  }
+}
+
+/* Hide/Show utilities for responsive design */
+.hide-mobile {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* Full width on mobile utility */
+.full-width-mobile {
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .full-width-mobile {
+    width: 100% !important;
+  }
+}
+
+/* Stack buttons on mobile */
+.button-group {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .button-group {
+    flex-direction: column;
+  }
+
+  .button-group button,
+  .button-group .btn {
+    width: 100%;
+  }
+}
+
+/* Card layouts for better mobile UX */
+.mobile-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .mobile-card {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-card {
+    padding: 1rem;
+    border-radius: 6px;
+  }
+}
+
+/* Responsive form layout */
+.form-mobile-stack {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-mobile-stack {
+    flex-direction: column;
+  }
+}
+
+/* Better modal/dialog responsiveness */
+.modal-content {
+  max-width: 600px;
+  width: 90%;
+  margin: 2rem auto;
+}
+
+@media (max-width: 768px) {
+  .modal-content {
+    width: 95%;
+    margin: 1rem auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-content {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* Responsive image gallery */
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .image-grid {
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+}
+
+/* Responsive QR code container */
+@media (max-width: 768px) {
+  .qr-code-display,
+  .qr-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .qr-code-display img,
+  .qr-container img {
+    max-width: 250px;
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .qr-code-display img,
+  .qr-container img {
+    max-width: 200px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  /* Hide navigation and non-essential elements when printing */
+  .header,
+  .nav-menu,
+  .logout-btn,
+  .nav-btn,
+  button:not(.print-button) {
+    display: none !important;
+  }
+
+  /* Optimize page breaks */
+  .section,
+  .table-container,
+  .qr-code-display {
+    page-break-inside: avoid;
+  }
+
+  /* Ensure proper table printing */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid #000;
+    padding: 8px;
+  }
+
+  /* QR codes should be clearly visible when printed */
+  .qr-code-display img,
+  .qr-container img {
+    max-width: 300px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  /* Reset colors for printing */
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .section {
+    box-shadow: none !important;
+    border: 1px solid #ddd;
+  }
+
+  /* Ensure text is readable */
+  * {
+    color: black !important;
+    background: white !important;
+  }
+}
